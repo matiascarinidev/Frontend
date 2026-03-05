@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --navbar-height: 80px;
+  --scroll-margin: 20px;
+  scroll-behavior: smooth;
+}
+
+/* globals.css */
+::-webkit-scrollbar {
+  display: none; /* Oculta la scrollbar pero mantiene el scroll funcional */
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+html {
+  scroll-padding-top: calc(var(--navbar-height) + var(--scroll-margin));
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
