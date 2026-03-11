@@ -1,0 +1,12 @@
+// app/reserva/store/store.ts
+import { configureStore } from "@reduxjs/toolkit";
+import reservationReducer from "./slice";
+
+export const store = configureStore({
+  reducer: {
+    reservation: reservationReducer,
+  },
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

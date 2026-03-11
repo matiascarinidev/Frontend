@@ -1,89 +1,81 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useNavbarContext } from "@/components/landing/NavbarContext";
 import Link from "next/link";
 import LogoAntenor from "../LogoAntenor";
 
 export default function Navbar() {
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  // Sticky state is derived from scrollProgress
-  // This will be true when scrollProgress is greater than or equal to 0.3
-  useEffect(() => {
-    const handleScroll = () => {
-      const viewportHeight = document.documentElement.clientHeight;
-      const scrollY = window.scrollY;
-      const maxScroll = viewportHeight * 0.3;
-      const progress = Math.min(scrollY / maxScroll, 1);
-      setScrollProgress(progress);
-    };
-
-    const throttledScroll = () => {
-      requestAnimationFrame(handleScroll);
-    };
-
-    window.addEventListener("scroll", throttledScroll, { passive: true });
-    console.log("Scroll Progress:", scrollProgress);
-    console.log("Is Sticky:", isSticky);
-    return () => window.removeEventListener("scroll", throttledScroll);
-  }, []);
-
-  const isSticky = scrollProgress >= 0.45;
-
+  const { scrollProgress } = useNavbarContext();
+  const isCollapsed = scrollProgress > 0.3;
+  const bgOpacity = Math.min(scrollProgress + 0.4 * 1.6, 1);
+  const headerHeight = isCollapsed ? "100px" : "100%";
+  const logoScale = 1 - scrollProgress * 0.3; // Escala del logo (0.7 a 1)
+  const navFontSize = Math.max(14, 24 - scrollProgress * 20); // Tamaño de fuente
   return (
-    <>
-      <div className={`${isSticky ? "relative h-[30vh]" : ""}`}></div>
-      <header
-        className={`z-50 transition-all duration-700 relative top-0 left-0 right-0 ${
-          isSticky ? "bg-[#000] p-2" : "bg-[#0008]"
-        }`}
-        style={
-          isSticky
-            ? { position: "fixed" }
-            : { height: `${100 - scrollProgress * 100}vh` }
-        }
+    <header
+      className={`fixed top-0 left-0 w-full z-50  text-white transition-all duration-300 flex items-center justify-center`}
+      style={{
+        height: `${headerHeight}`,
+        background: `
+          linear-gradient(rgba(0,0,0,${bgOpacity}), rgba(0,0,0,${bgOpacity})
+          ),
+          url("/images/hero/hero-bg.jpg") bottom center/cover no-repeat fixed
+        `,
+        backdropFilter: `blur(${Math.min(scrollProgress * 5, 3)}px)`,
+      }}
+    >
+      <div
+        className={`grid  transition-all duration-700 m-auto h-full ${
+          isCollapsed
+            ? "grid-cols-9 w-full"
+            : " grid-cols-3 p-8 w-4/5 m-auto h-full"
+        } `}
       >
-        <div
-          className={`container mx-auto flex gap-24 ${
-            isSticky
-              ? "flex-row justify-between items-center"
-              : "flex-col items-center justify-center h-[100%]"
+        <LogoAntenor
+          className={` text-shadow-[5px_0_15px_#000a] m-auto ${
+            isCollapsed ? "col-span-1 col-start-2" : "  col-span-3 w-3/4 m-auto"
+          } `}
+          style={{
+            transform: `scale(${logoScale})`,
+          }}
+          color="#fff"
+        />
+
+        <nav
+          className={`h-full flex items-center m-auto  w-full ${
+            isCollapsed ? "col-span-3  col-start-6" : "col-span-3  "
           }`}
         >
-          <LogoAntenor
-            color="#fff"
-            size={isSticky ? 0.6 : 3}
-            className="transition-all duration-200 "
-          />
-          <nav>
-            <ul className={`flex gap-8 ${isSticky ? "text-lg" : "text-2xl"}`}>
-              <li>
+          <ul
+            className={`grid grid-cols-3 w-full h-full gap-2
+            m-auto`}
+            style={{
+              fontSize: `${navFontSize}px`,
+            }}
+          >
+            {["reserva", "nosotros", "menu"].map((item) => (
+              <li
+                key={item}
+                className={`flex items-center justify-center transition-all duration-700  hover:shadow-[0_0_0.25rem_0.25rem_#fff8_inset] h-2/3 m-auto ${
+                  isCollapsed
+                    ? " text-lg hover:shadow-[0_0_0.1rem_0.1rem_#fff2_inset] w-full"
+                    : "text-3xl w-4/5 h-2/3 hover:shadow-[0_0_0.25rem_0.25rem_#fff8_inset]"
+                }`}
+              >
                 <Link
-                  href="/reservas"
-                  className="hover:text-gray-400 transition-colors"
+                  href={`/${item}`}
+                  className={`w-full text-shadow-[0_0_5px_#000e] text-center `}
                 >
-                  Reservas
+                  {item === "menu"
+                    ? "Menú"
+                    : item === "reserva"
+                    ? "Reservas"
+                    : "Sobre nosotros"}
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/nosotros"
-                  className="hover:text-gray-400 transition-colors"
-                >
-                  Sobre nosotros
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contacto"
-                  className="hover:text-gray-400 transition-colors"
-                >
-                  Contacto
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-    </>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
   );
 }

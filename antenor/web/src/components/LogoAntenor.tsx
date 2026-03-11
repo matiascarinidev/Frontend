@@ -2,15 +2,13 @@ import React from "react";
 
 interface LogoAntenorProps {
   color?: string;
-  size?: number;
   fontFamily?: string;
   className?: string;
   style?: React.CSSProperties;
 }
 
 const LogoAntenor: React.FC<LogoAntenorProps> = ({
-  color = "#000000", // Color por defecto negro
-  size = 1, // Factor de escala, 1 = tamaño original
+  color = "#000", // Color por defecto negro
   fontFamily = "var(--font-bodoni)",
   className = "",
   style = {},
@@ -21,8 +19,6 @@ const LogoAntenor: React.FC<LogoAntenorProps> = ({
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       style={{
-        width: `${300 * size}px`,
-        height: `${100 * size}px`,
         ...style,
       }}
     >

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda } from "next/font/google";
 import "@/styles/globals.css";
-import styles from "@/styles/components/bgPhoto.module.css";
 
 const bodoniSans = Bodoni_Moda({
   variable: "--font-bodoni",
@@ -10,7 +9,8 @@ const bodoniSans = Bodoni_Moda({
 
 export const metadata: Metadata = {
   title: "Antenor",
-  description: "Restaurante de campo",
+  description:
+    "Restaurante de campo con parrilla libre en la ciudad de Mercedes, Buenos Aires",
 };
 
 export default function RootLayout({
@@ -19,10 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${bodoniSans.variable} antialiased w-full absolute  ${styles.bgPhoto}`}
-      >
+    <html lang="es">
+      <body className={`${bodoniSans.variable} antialiased w-full`}>
         {children}
       </body>
     </html>
