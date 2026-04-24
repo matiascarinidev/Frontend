@@ -10,6 +10,7 @@ function Projects() {
       <p>Here are some projects that I have worked on.</p>
       <ul className="mt-6 mx-4 overflow-y-auto overflow-x-hidden max-h-90 p-6 backdrop-blur-md bg-gray-600/20  rounded-lg">
         <Project deployLink="https://www.metalurgicalobato.com.ar/" />
+        <Project deployLink="https://restaurant-lilac-five.vercel.app/" />
         <Project deployLink="https://github.com/maticarini" />
         <Project deployLink="https://github.com/matiascarini" />
         <Project deployLink="https://github.com/Matiascarinidev" />
