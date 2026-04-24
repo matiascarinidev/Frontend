@@ -24,7 +24,7 @@ function BubbleContainer() {
 
   return (
     <section
-      className="top-0 bottom-0 left-0 right-0 absolute flex items-center justify-center overflow-hidden"
+      className="top-0 bottom-0 left-0 right-0 absolute flex items-center justify-center overflow-hidden z-[-100]"
       style={{
         filter: "url(#goo)",
         pointerEvents: "none",

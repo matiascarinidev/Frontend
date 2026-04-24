@@ -11,35 +11,11 @@ import BubbleContainer from "./components/BubbleContainer.jsx";
 
 //Styles
 import "./App.css";
-//Icons
-import { FaRegSquare, FaSquare } from "react-icons/fa6";
 
 function App() {
   return (
     <>
-      <header>
-        <div className="flex justify-end items-center px-4">
-          <ul className="flex space-x-4 p-1">
-            <li className="flex items-center text-white">
-              <FaSquare className="mx-2" />
-              default
-            </li>
-            <li className="flex items-center text-white">
-              <FaRegSquare className="mx-2" />
-              HTML
-            </li>
-            <li className="flex items-center text-white">
-              <FaRegSquare className="mx-2" />
-              CSS
-            </li>
-            <li className="flex items-center text-white">
-              <FaRegSquare className="mx-2" />
-              Js
-            </li>
-          </ul>
-        </div>
-      </header>
-      <main className="flex flex-1 border items-center mx-4 p-8 relative">
+      <main className="flex flex-1 border items-center mx-4 mt-6 p-8 relative">
         <div className="flex-1">
           <Routes>
             <Route path="/aboutme" element={<AboutMe />} />
